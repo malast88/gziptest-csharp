@@ -40,6 +40,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Input\UncompressedFileReaderTest.cs" />
     <Compile Include="Main\ArgumentsResolverTests.cs" />
     <Compile Include="Main\CoreTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

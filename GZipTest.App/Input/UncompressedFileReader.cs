@@ -1,10 +1,54 @@
-﻿namespace GZipTest.App.Input
+﻿using GZipTest.App.Domain;
+using GZipTest.App.Io;
+using GZipTest.App.Threading;
+using System;
+
+namespace GZipTest.App.Input
 {
     public class UncompressedFileReader : IUncompressedFileReader
     {
+        private readonly int _blockSize;
+        private readonly IIo _io;
+        private readonly IProducerConsumer<IByteChunk> _producerConsumer;
+
+        public UncompressedFileReader(int blockSize,
+            IIo io,
+            IProducerConsumer<IByteChunk> producerConsumer)
+        {
+            _blockSize = blockSize;
+            _io = io;
+            _producerConsumer = producerConsumer;
+        }
+
         public void ReadFile(string filePath)
         {
-            throw new System.NotImplementedException();
+            using (var source = _io.FileOpenRead(filePath))
+            {
+                int currentId = 0;
+                byte[] buffer = new byte[_blockSize];
+                int bytesRead;
+                while ((bytesRead = source.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    var bytes = buffer;
+                    if (bytesRead != buffer.Length)
+                    {
+                        bytes = new byte[bytesRead];
+                        Buffer.BlockCopy(buffer, 0, bytes, 0, bytesRead);
+                    }
+                    var byteChunk = new ByteChunk
+                    {
+                        Id = currentId++,
+                        Data = bytes
+                    };
+                    _producerConsumer.Push(byteChunk);
+
+                    if (bytesRead > 0)
+                    {
+                        buffer = new byte[_blockSize];
+                    }
+                }
+                _producerConsumer.Stop();
+            }
         }
     }
 }

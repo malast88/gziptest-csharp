@@ -39,6 +39,9 @@
     <Compile Include="Domain\ByteChunk.cs" />
     <Compile Include="Domain\IByteChunk.cs" />
     <Compile Include="Domain\IId.cs" />
+    <Compile Include="Domain\IProducerConsumerChain.cs" />
+    <Compile Include="Domain\ProducerConsumerOrderedQueue.cs" />
+    <Compile Include="Domain\ProducerConsumerQueue.cs" />
     <Compile Include="Input\IUncompressedFileReader.cs" />
     <Compile Include="Input\UncompressedFileReader.cs" />
     <Compile Include="Io\IIo.cs" />

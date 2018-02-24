@@ -8,7 +8,7 @@ namespace GZipTest.RegressionTests
     [TestFixture]
     public class ExeTest
     {
-        [Test]
+        [Test, Category("Regression")]
         public void ExeShouldCompressAndDecompress()
         {
             // Arrange
@@ -44,7 +44,7 @@ namespace GZipTest.RegressionTests
             Assert.AreEqual(File.ReadAllBytes(inputFile), File.ReadAllBytes(decompressedFile));
         }
 
-        [Test]
+        [Test, Category("Regression")]
         public void ExeShouldCatchAnError()
         {
             // Arrange

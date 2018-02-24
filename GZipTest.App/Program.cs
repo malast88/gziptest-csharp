@@ -13,6 +13,7 @@ namespace GZipTest.App
     {
         // TODO resolve this regarding to system memory and cores count available
         const int UncompressedReadBlockSize = 4 * 1024 * 1024;
+        const int ReaderProducerConsumerCapacity = 8;
 
         static void Main(string[] args)
         {
@@ -20,7 +21,9 @@ namespace GZipTest.App
             {
                 var argsResolver = new ArgumentsResolver();
                 var io = new IoImpl();
-                var uncompressedFileReaderToCompressorsChain = new ProducerConsumer<IByteChunk>();
+                var uncompressedFileReaderToCompressorsChain = new ProducerConsumer<IByteChunk>(
+                    ReaderProducerConsumerCapacity,
+                    new ProducerConsumerQueue<IByteChunk>());
                 var uncompressedFileReader = new UncompressedFileReader(UncompressedReadBlockSize,
                     io,
                     uncompressedFileReaderToCompressorsChain);

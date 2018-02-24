@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GZipTest.App", "GZipTest.App.csproj", "{0B357FFA-3302-4007-A2AB-C79457B6ABE0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GZipTest.App", "GZipTest.App\GZipTest.App.csproj", "{0B357FFA-3302-4007-A2AB-C79457B6ABE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GZipTest.RegressionTests", "..\GZipTest.RegressionTests\GZipTest.RegressionTests.csproj", "{30921A3A-FA63-44C3-95A4-FAA4954C8214}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GZipTest.RegressionTests", "GZipTest.RegressionTests\GZipTest.RegressionTests.csproj", "{30921A3A-FA63-44C3-95A4-FAA4954C8214}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GZipTest.Tests", "GZipTest.Tests\GZipTest.Tests.csproj", "{F01942B6-5209-42D7-8877-993D06F39635}"
 EndProject

@@ -68,7 +68,7 @@ namespace GZipTest.RegressionTests
             while (!proc.StandardOutput.EndOfStream)
             {
                 string line = proc.StandardOutput.ReadLine();
-                Assert.IsTrue(line.StartsWith("Unexpected error"));
+                Assert.AreEqual("Unexpected error: 'Invalid arguments count '0''", line);
             }
         }
 

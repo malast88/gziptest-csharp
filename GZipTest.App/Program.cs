@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GZipTest.App.Main;
+using System;
 
 namespace GZipTest.App
 {
@@ -8,9 +9,9 @@ namespace GZipTest.App
         {
             try
             {
-                var inputFile = args[0];
-                var outputFile = args[1];
-                System.IO.File.WriteAllText(outputFile, "test");
+                var argsResolver = new ArgumentsResolver();
+                var core = new Core(argsResolver);
+                core.Run(args);
             }
             catch (Exception ex)
             {

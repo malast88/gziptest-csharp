@@ -36,11 +36,16 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Main\ArgumentsResolver.cs" />
+    <Compile Include="Main\Core.cs" />
+    <Compile Include="Main\IArgumentsResolver.cs" />
+    <Compile Include="Main\ICore.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

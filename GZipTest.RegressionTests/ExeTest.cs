@@ -23,7 +23,7 @@ namespace GZipTest.RegressionTests
             Process.Start(new ProcessStartInfo
             {
                 FileName = exePath,
-                Arguments = $"\"{inputFile}\" \"{compressedFile}\"",
+                Arguments = $" compress \"{inputFile}\" \"{compressedFile}\"",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 CreateNoWindow = true
@@ -31,7 +31,7 @@ namespace GZipTest.RegressionTests
             Process.Start(new ProcessStartInfo
             {
                 FileName = exePath,
-                Arguments = $"\"{compressedFile}\" \"{decompressedFile}\"",
+                Arguments = $" decompress \"{compressedFile}\" \"{decompressedFile}\"",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 CreateNoWindow = true

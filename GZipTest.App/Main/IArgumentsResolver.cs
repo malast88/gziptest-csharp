@@ -5,5 +5,6 @@
         void ResolveArgs(string[] args);
         string InputFile { get; }
         string OutputFile { get; }
+        JobType JobType { get; }
     }
 }

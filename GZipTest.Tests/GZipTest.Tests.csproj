@@ -45,6 +45,8 @@
     <Compile Include="Input\UncompressedFileReaderUowTest.cs" />
     <Compile Include="Main\ArgumentsResolverTests.cs" />
     <Compile Include="Main\CoreTests.cs" />
+    <Compile Include="Output\FileWriterTest.cs" />
+    <Compile Include="Output\FileWriterUowTest.cs" />
     <Compile Include="Process\BlockCompressorStraterTest.cs" />
     <Compile Include="Process\BlockCompressorTest.cs" />
     <Compile Include="Process\BlockCompressorUowFactoryTest.cs" />

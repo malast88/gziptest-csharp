@@ -24,10 +24,15 @@ namespace GZipTest.App
             try
             {
                 var argsResolver = new ArgumentsResolver();
+                var finishChain = SetupFinishChain();
                 var readerToProcessorsChain = SetupReaderToProcessorsChain();
-                var uncompressedFileReader = SetupUncompressedFileReader(readerToProcessorsChain);
-                var blockCompressor = SetupBlockCompressor(readerToProcessorsChain);
-                var fileWriter = new FileWriter();
+                var uncompressedFileReader = SetupUncompressedFileReader(readerToProcessorsChain,
+                    finishChain);
+                var compressorOutputFactory = new BlockCompressorUowOutputFactory(ProcessorProducerConsumerCapacity);
+                var blockCompressor = SetupBlockCompressor(readerToProcessorsChain,
+                    compressorOutputFactory);
+                var fileWriter = SetupFileWriter(compressorOutputFactory,
+                    finishChain);
                 var core = new Core(argsResolver,
                     uncompressedFileReader,
                     blockCompressor,
@@ -40,6 +45,13 @@ namespace GZipTest.App
             }
         }
 
+        static ProducerConsumer<IByteChunk> SetupFinishChain()
+        {
+            return new ProducerConsumer<IByteChunk>(
+                    ReaderProducerConsumerCapacity,
+                    new ProducerConsumerQueue<IByteChunk>());
+        }
+
         static ProducerConsumer<IByteChunk> SetupReaderToProcessorsChain()
         {
             return new ProducerConsumer<IByteChunk>(
@@ -49,19 +61,21 @@ namespace GZipTest.App
 
         // TODO consider adding unity to the project
         static IUncompressedFileReader SetupUncompressedFileReader(
-            ProducerConsumer<IByteChunk> readerToProcessorsChain)
+            ProducerConsumer<IByteChunk> readerToProcessorsChain,
+            ProducerConsumer<IByteChunk> finishChain)
         {
             return new UncompressedFileReader(
                 new ThreadingImpl(),
                 new UncompressedFileReaderUow(UncompressedReadBlockSize,
                     new IoImpl(),
-                    readerToProcessorsChain));
+                    readerToProcessorsChain,
+                    finishChain));
         }
 
         static IBlockCompressor SetupBlockCompressor(
-            ProducerConsumer<IByteChunk> readerToProcessorsChain)
+            ProducerConsumer<IByteChunk> readerToProcessorsChain,
+            IBlockCompressorUowOutputFactory outputFactory)
         {
-            var outputFactory = new BlockCompressorUowOutputFactory(ProcessorProducerConsumerCapacity);
             var blockCompressorUowFactory = new BlockCompressorUowFactory(readerToProcessorsChain, 
                 outputFactory,
                 new GzipStream());
@@ -69,6 +83,15 @@ namespace GZipTest.App
                 blockCompressorUowFactory);
 
             return new BlockCompressor(CompressThreadsCount, starter);
+        }
+
+        static IFileWriter SetupFileWriter(IBlockCompressorUowOutputFactory outputFactory,
+            ProducerConsumer<IByteChunk> finishChain)
+        {
+            return new FileWriter(new ThreadingImpl(),
+                new FileWriterUow(new IoImpl(),
+                outputFactory.GetAllOutputs(),
+                finishChain));
         }
     }
 }

@@ -56,7 +56,9 @@
     <Compile Include="Main\ICore.cs" />
     <Compile Include="Main\JobType.cs" />
     <Compile Include="Ouput\FileWriter.cs" />
+    <Compile Include="Ouput\FileWriterUow.cs" />
     <Compile Include="Ouput\IFileWriter.cs" />
+    <Compile Include="Ouput\IFileWriterUow.cs" />
     <Compile Include="Process\BlockCompressor.cs" />
     <Compile Include="Process\BlockCompressorStarter.cs" />
     <Compile Include="Process\BlockCompressorUow.cs" />

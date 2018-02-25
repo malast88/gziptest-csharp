@@ -19,7 +19,7 @@ namespace GZipTest.Tests.Gzip
             // Assert
             Assert.AreEqual(0x1f, result[0]);
             Assert.AreEqual(0x8b, result[1]);
-            Assert.AreEqual(110, result.Length);
+            Assert.AreEqual(121, result.Length);
         }
     }
 }

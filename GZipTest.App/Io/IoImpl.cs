@@ -8,5 +8,10 @@ namespace GZipTest.App.Io
         {
             return File.OpenRead(filePath);
         }
+
+        public Stream FileOpenWrite(string filePath)
+        {
+            return File.OpenWrite(filePath);
+        }
     }
 }

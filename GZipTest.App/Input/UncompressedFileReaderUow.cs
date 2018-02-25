@@ -10,14 +10,17 @@ namespace GZipTest.App.Input
         private readonly int _blockSize;
         private readonly IIo _io;
         private readonly IProducerConsumer<IByteChunk> _producerConsumer;
+        private readonly IProducerConsumer<IByteChunk> _finishPc;
 
         public UncompressedFileReaderUow(int blockSize,
             IIo io,
-            IProducerConsumer<IByteChunk> producerConsumer)
+            IProducerConsumer<IByteChunk> producerConsumer,
+            IProducerConsumer<IByteChunk> finishPc)
         {
             _blockSize = blockSize;
             _io = io;
             _producerConsumer = producerConsumer;
+            _finishPc = finishPc;
         }
 
         public Action ReadFileAction(string filePath)
@@ -50,6 +53,8 @@ namespace GZipTest.App.Input
                         }
                     }
                     _producerConsumer.Stop();
+
+                    _finishPc.Push(new ByteChunk { Id = currentId });
                 }
             };
         }

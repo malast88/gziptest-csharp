@@ -12,11 +12,9 @@ namespace GZipTest.App.Gzip
                     System.IO.Compression.CompressionMode.Compress))
                 {
                     gzip.Write(buffer, 0, buffer.Length);
-                    outputMs.Seek(0, SeekOrigin.Begin);
+                    gzip.Close();
 
-                    var result = new byte[outputMs.Length];
-                    outputMs.Read(result, 0, result.Length);
-                    return result;
+                    return outputMs.ToArray();
                 }
             }
         }

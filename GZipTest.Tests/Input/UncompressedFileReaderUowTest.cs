@@ -29,17 +29,21 @@ namespace GZipTest.Tests.Input
             producerConsumer.Expect(t => t.Push(Arg<IByteChunk>.Matches(c => c.Id == 2 && c.Data.Length == mockBytesLength - 2 * blockSize))).Repeat.Once();
             producerConsumer.Expect(t => t.Stop()).Repeat.Once();
 
+            var finishPc = MockRepository.GenerateMock<IProducerConsumer<IByteChunk>>();
+            finishPc.Expect(t => t.Push(Arg<IByteChunk>.Matches(d => d.Id == 3))).Repeat.Once();
+
             var readerUow = new UncompressedFileReaderUow(blockSize,
                 io,
-                producerConsumer);
-            var action = readerUow.ReadFileAction(fileName);
+                producerConsumer,
+                finishPc);
 
             // Act
-            action();
+            readerUow.ReadFileAction(fileName)();
 
             // Assert
             io.VerifyAllExpectations();
             producerConsumer.VerifyAllExpectations();
+            finishPc.VerifyAllExpectations();
         }
     }
 }

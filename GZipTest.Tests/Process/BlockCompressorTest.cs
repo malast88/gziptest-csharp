@@ -1,5 +1,4 @@
-﻿using GZipTest.App.Domain;
-using GZipTest.App.Threading;
+﻿using GZipTest.App.Process;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -8,15 +7,21 @@ namespace GZipTest.Tests.Process
     [TestFixture]
     public class BlockCompressorTest
     {
-        //[Test]
-        //public void BlockCompressorShouldWorkAsExpected()
-        //{
-        //    // Arrange
-        //    // factory?
+        [Test]
+        public void BlockCompressorShouldWorkAsExpected()
+        {
+            // Arrange
+            const int threadsCount = 8;
+            var strater = MockRepository.GenerateMock<IBlockCompressorStarter>();
+            strater.Expect(t => t.StartCompress()).Repeat.Times(threadsCount);
 
-        //    // Act
+            var compressor = new BlockCompressor(threadsCount, strater);
 
-        //    // Assert
-        //}
+            // Act
+            compressor.Compress();
+
+            // Assert
+            strater.VerifyAllExpectations();
+        }
     }
 }

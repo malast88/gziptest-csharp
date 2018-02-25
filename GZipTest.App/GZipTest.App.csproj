@@ -42,6 +42,8 @@
     <Compile Include="Domain\IProducerConsumerChain.cs" />
     <Compile Include="Domain\ProducerConsumerOrderedQueue.cs" />
     <Compile Include="Domain\ProducerConsumerQueue.cs" />
+    <Compile Include="Gzip\GzipStream.cs" />
+    <Compile Include="Gzip\IGzipStream.cs" />
     <Compile Include="Input\IUncompressedFileReader.cs" />
     <Compile Include="Input\IUncompressedFileReaderUow.cs" />
     <Compile Include="Input\UncompressedFileReader.cs" />
@@ -56,8 +58,16 @@
     <Compile Include="Ouput\FileWriter.cs" />
     <Compile Include="Ouput\IFileWriter.cs" />
     <Compile Include="Process\BlockCompressor.cs" />
+    <Compile Include="Process\BlockCompressorStarter.cs" />
+    <Compile Include="Process\BlockCompressorUow.cs" />
+    <Compile Include="Process\BlockCompressorUowFactory.cs" />
+    <Compile Include="Process\BlockCompressorUowOutputFactory.cs" />
     <Compile Include="Process\IBlockCompressor.cs" />
+    <Compile Include="Process\IBlockCompressorStarter.cs" />
     <Compile Include="Process\IBlockCompressorUow.cs" />
+    <Compile Include="Process\IBlockCompressorUowFactory.cs" />
+    <Compile Include="Process\IBlockCompressorUowOutputFactory.cs" />
+    <Compile Include="Process\IByteChain.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Threading\IProducerConsumer.cs" />

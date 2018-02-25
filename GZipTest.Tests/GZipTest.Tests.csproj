@@ -40,11 +40,15 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Gzip\GzipStreamTest.cs" />
     <Compile Include="Input\UncompressedFileReaderTest.cs" />
     <Compile Include="Input\UncompressedFileReaderUowTest.cs" />
     <Compile Include="Main\ArgumentsResolverTests.cs" />
     <Compile Include="Main\CoreTests.cs" />
+    <Compile Include="Process\BlockCompressorStraterTest.cs" />
     <Compile Include="Process\BlockCompressorTest.cs" />
+    <Compile Include="Process\BlockCompressorUowFactoryTest.cs" />
+    <Compile Include="Process\BlockCompressorUowTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Threading\ProducerConsumerTest.cs" />
   </ItemGroup>

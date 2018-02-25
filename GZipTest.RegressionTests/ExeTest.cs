@@ -20,6 +20,14 @@ namespace GZipTest.RegressionTests
             var decompressedFile = Path.Combine(assembyDirectory, @"Data\1_.txt");
 
             // Act
+            if (File.Exists(compressedFile))
+            {
+                File.Delete(compressedFile);
+            }
+            if (File.Exists(decompressedFile))
+            {
+                File.Delete(decompressedFile);
+            }
             Process.Start(new ProcessStartInfo
             {
                 FileName = exePath,

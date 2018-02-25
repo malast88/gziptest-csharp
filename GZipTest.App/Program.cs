@@ -20,13 +20,7 @@ namespace GZipTest.App
             try
             {
                 var argsResolver = new ArgumentsResolver();
-                var io = new IoImpl();
-                var uncompressedFileReaderToCompressorsChain = new ProducerConsumer<IByteChunk>(
-                    ReaderProducerConsumerCapacity,
-                    new ProducerConsumerQueue<IByteChunk>());
-                var uncompressedFileReader = new UncompressedFileReader(UncompressedReadBlockSize,
-                    io,
-                    uncompressedFileReaderToCompressorsChain);
+                var uncompressedFileReader = SetupUncompressedFileReader();
                 var blockCompressor = new BlockCompressor();
                 var fileWriter = new FileWriter();
                 var core = new Core(argsResolver,
@@ -39,6 +33,18 @@ namespace GZipTest.App
             {
                 Console.WriteLine($"Unexpected error: '{ex.Message}'");
             }
+        }
+
+        static UncompressedFileReader SetupUncompressedFileReader()
+        {
+            var uncompressedFileReaderToCompressorsChain = new ProducerConsumer<IByteChunk>(
+                    ReaderProducerConsumerCapacity,
+                    new ProducerConsumerQueue<IByteChunk>());
+            return new UncompressedFileReader(
+                new ThreadingImpl(),
+                new UncompressedFileReaderUow(UncompressedReadBlockSize,
+                    new IoImpl(),
+                    uncompressedFileReaderToCompressorsChain));
         }
     }
 }

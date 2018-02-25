@@ -41,8 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Input\UncompressedFileReaderTest.cs" />
+    <Compile Include="Input\UncompressedFileReaderUowTest.cs" />
     <Compile Include="Main\ArgumentsResolverTests.cs" />
     <Compile Include="Main\CoreTests.cs" />
+    <Compile Include="Process\BlockCompressorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Threading\ProducerConsumerTest.cs" />
   </ItemGroup>

@@ -43,7 +43,9 @@
     <Compile Include="Domain\ProducerConsumerOrderedQueue.cs" />
     <Compile Include="Domain\ProducerConsumerQueue.cs" />
     <Compile Include="Input\IUncompressedFileReader.cs" />
+    <Compile Include="Input\IUncompressedFileReaderUow.cs" />
     <Compile Include="Input\UncompressedFileReader.cs" />
+    <Compile Include="Input\UncompressedFileReaderUow.cs" />
     <Compile Include="Io\IIo.cs" />
     <Compile Include="Io\IoImpl.cs" />
     <Compile Include="Main\ArgumentsResolver.cs" />
@@ -55,10 +57,13 @@
     <Compile Include="Ouput\IFileWriter.cs" />
     <Compile Include="Process\BlockCompressor.cs" />
     <Compile Include="Process\IBlockCompressor.cs" />
+    <Compile Include="Process\IBlockCompressorUow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Threading\IProducerConsumer.cs" />
+    <Compile Include="Threading\IThreading.cs" />
     <Compile Include="Threading\ProducerConsumer.cs" />
+    <Compile Include="Threading\ThreadingImpl.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

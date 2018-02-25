@@ -41,8 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Gzip\GzipStreamTest.cs" />
-    <Compile Include="Input\UncompressedFileReaderTest.cs" />
-    <Compile Include="Input\UncompressedFileReaderUowTest.cs" />
+    <Compile Include="Input\FileReaderTest.cs" />
+    <Compile Include="Input\FileReaderUowTest.cs" />
     <Compile Include="Main\ArgumentsResolverTests.cs" />
     <Compile Include="Main\CoreTests.cs" />
     <Compile Include="Output\FileWriterTest.cs" />

@@ -1,4 +1,5 @@
 ﻿
+using GZipTest.App.Main;
 using GZipTest.App.Threading;
 
 namespace GZipTest.App.Process
@@ -15,9 +16,9 @@ namespace GZipTest.App.Process
             _factory = factory;
         }
 
-        public void StartCompress()
+        public void StartCompress(JobType jobType)
         {
-            _threading.ThreadStart(_factory.Create().CompressAction());
+            _threading.ThreadStart(_factory.Create().CompressAction(jobType));
         }
     }
 }

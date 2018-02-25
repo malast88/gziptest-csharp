@@ -1,5 +1,6 @@
 ﻿using GZipTest.App.Domain;
 using GZipTest.App.Gzip;
+using GZipTest.App.Main;
 using GZipTest.App.Threading;
 using System;
 
@@ -20,7 +21,7 @@ namespace GZipTest.App.Process
             _gzipStream = gzipStream;
         }
 
-        public Action CompressAction()
+        public Action CompressAction(JobType jobType)
         {
             return new Action(() =>
             {
@@ -30,7 +31,7 @@ namespace GZipTest.App.Process
                     var outputTask = new ByteChunk
                     {
                         Id = inputTask.Id,
-                        Data = _gzipStream.Compress(inputTask.Data)
+                        Data = _gzipStream.Compress(inputTask.Data, jobType)
                     };
                     _output.Push(outputTask);
                     inputTask = _input.Pop();

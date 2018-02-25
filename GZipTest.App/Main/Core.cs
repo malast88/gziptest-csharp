@@ -7,12 +7,12 @@ namespace GZipTest.App.Main
     public class Core : ICore
     {
         private readonly IArgumentsResolver _argumentsResolver;
-        private readonly IUncompressedFileReader _uncompressedFileReader;
+        private readonly IFileReader _uncompressedFileReader;
         private readonly IBlockCompressor _blockCompressor;
         private readonly IFileWriter _fileWriter;
 
         public Core(IArgumentsResolver argumentsResolver,
-            IUncompressedFileReader uncompressedFileReader,
+            IFileReader uncompressedFileReader,
             IBlockCompressor blockCompressor,
             IFileWriter fileWriter)
         {
@@ -25,12 +25,9 @@ namespace GZipTest.App.Main
         public void Run(string[] args)
         {
             _argumentsResolver.ResolveArgs(args);
-            if (_argumentsResolver.JobType == JobType.Compress)
-            {
-                _uncompressedFileReader.ReadFile(_argumentsResolver.InputFile);
-                _blockCompressor.Compress();
-                _fileWriter.WriteFile(_argumentsResolver.OutputFile);
-            }
+            _uncompressedFileReader.ReadFile(_argumentsResolver.InputFile, _argumentsResolver.JobType);
+            _blockCompressor.Compress(_argumentsResolver.JobType);
+            _fileWriter.WriteFile(_argumentsResolver.OutputFile);
         }
     }
 }

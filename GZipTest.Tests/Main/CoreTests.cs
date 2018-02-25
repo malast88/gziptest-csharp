@@ -9,22 +9,23 @@ namespace GZipTest.Tests.Main
     [TestFixture]
     public class CoreTests
     {
-        [Test]
-        public void CoreShouldWorkAsExpected()
+        [TestCase(JobType.Compress, TestName = "CoreCompress")]
+        [TestCase(JobType.Decompress, TestName = "CoreDecompress")]
+        public void CoreShouldWorkAsExpected(JobType jobType)
         {
             // Arrange
             var args = new string[0];
             var argResolver = MockRepository.GenerateMock<IArgumentsResolver>();
             argResolver.Expect(t => t.ResolveArgs(args)).Repeat.Once();
-            argResolver.Expect(t => t.JobType).Repeat.Once().Return(JobType.Compress);
-            argResolver.Expect(t => t.InputFile).Repeat.Once().Return("inputFile");
-            argResolver.Expect(t => t.OutputFile).Repeat.Once().Return("outputFile");
+            argResolver.Expect(t => t.JobType).Repeat.Any().Return(jobType);
+            argResolver.Expect(t => t.InputFile).Repeat.Any().Return("inputFile");
+            argResolver.Expect(t => t.OutputFile).Repeat.Any().Return("outputFile");
 
-            var fileReader = MockRepository.GenerateMock<IUncompressedFileReader>();
-            fileReader.Expect(t => t.ReadFile("inputFile")).Repeat.Once();
+            var fileReader = MockRepository.GenerateMock<IFileReader>();
+            fileReader.Expect(t => t.ReadFile("inputFile", jobType)).Repeat.Once();
 
             var processor = MockRepository.GenerateMock<IBlockCompressor>();
-            processor.Expect(t => t.Compress()).Repeat.Once();
+            processor.Expect(t => t.Compress(jobType)).Repeat.Once();
 
             var fileWriter = MockRepository.GenerateMock<IFileWriter>();
             fileWriter.Expect(t => t.WriteFile("outputFile")).Repeat.Once();

@@ -1,4 +1,6 @@
-﻿namespace GZipTest.App.Process
+﻿using GZipTest.App.Main;
+
+namespace GZipTest.App.Process
 {
     public class BlockCompressor : IBlockCompressor
     {
@@ -11,11 +13,11 @@
             _starter = starter;
         }
 
-        public void Compress()
+        public void Compress(JobType jobType)
         {
             for (var i=0;i<_threadsCount;i++)
             {
-                _starter.StartCompress();
+                _starter.StartCompress(jobType);
             }
         }
     }

@@ -44,10 +44,10 @@
     <Compile Include="Domain\ProducerConsumerQueue.cs" />
     <Compile Include="Gzip\GzipStream.cs" />
     <Compile Include="Gzip\IGzipStream.cs" />
-    <Compile Include="Input\IUncompressedFileReader.cs" />
-    <Compile Include="Input\IUncompressedFileReaderUow.cs" />
-    <Compile Include="Input\UncompressedFileReader.cs" />
-    <Compile Include="Input\UncompressedFileReaderUow.cs" />
+    <Compile Include="Input\IFileReader.cs" />
+    <Compile Include="Input\IFileReaderUow.cs" />
+    <Compile Include="Input\FileReader.cs" />
+    <Compile Include="Input\FileReaderUow.cs" />
     <Compile Include="Io\IIo.cs" />
     <Compile Include="Io\IoImpl.cs" />
     <Compile Include="Main\ArgumentsResolver.cs" />

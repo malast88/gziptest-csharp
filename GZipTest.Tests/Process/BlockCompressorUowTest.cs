@@ -1,5 +1,6 @@
 ﻿using GZipTest.App.Domain;
 using GZipTest.App.Gzip;
+using GZipTest.App.Main;
 using GZipTest.App.Process;
 using GZipTest.App.Threading;
 using NUnit.Framework;
@@ -22,7 +23,7 @@ namespace GZipTest.Tests.Process
 
             var compressedBytes = new byte[1];
             var gzip = MockRepository.GenerateMock<IGzipStream>();
-            gzip.Expect(t => t.Compress(inputDataBytes)).Repeat.Once().Return(compressedBytes);
+            gzip.Expect(t => t.Compress(inputDataBytes, JobType.Compress)).Repeat.Once().Return(compressedBytes);
 
             var output = MockRepository.GenerateMock<IProducerConsumer<IByteChunk>>();
             output.Expect(t => t.Push(Arg<IByteChunk>.Matches(d => d.Id == 123 && d.Data == compressedBytes))).Repeat.Once();
@@ -30,7 +31,7 @@ namespace GZipTest.Tests.Process
             var uow = new BlockCompressorUow(input, output, gzip);
 
             // Act
-            uow.CompressAction()();
+            uow.CompressAction(JobType.Compress)();
 
             // Assert
             input.VerifyAllExpectations();

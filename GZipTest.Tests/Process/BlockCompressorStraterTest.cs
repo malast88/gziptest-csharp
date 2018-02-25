@@ -1,4 +1,5 @@
 ﻿using GZipTest.App.Domain;
+using GZipTest.App.Main;
 using GZipTest.App.Process;
 using GZipTest.App.Threading;
 using NUnit.Framework;
@@ -16,7 +17,7 @@ namespace GZipTest.Tests.Process
             // Arrange
             var compressAction = new Action(() => { });
             var uow = MockRepository.GenerateMock<IBlockCompressorUow>();
-            uow.Expect(t => t.CompressAction()).Repeat.Once().Return(compressAction);
+            uow.Expect(t => t.CompressAction(JobType.Compress)).Repeat.Once().Return(compressAction);
             var uowFactory = MockRepository.GenerateMock<IBlockCompressorUowFactory>();
             uowFactory.Expect(t => t.Create()).Repeat.Once().Return(uow);
             var threading = MockRepository.GenerateMock<IThreading>();
@@ -25,7 +26,7 @@ namespace GZipTest.Tests.Process
             var starter = new BlockCompressorStarter(threading, uowFactory);
 
             // Act
-            starter.StartCompress();
+            starter.StartCompress(JobType.Compress);
 
             // Assert
             threading.VerifyAllExpectations();

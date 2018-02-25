@@ -60,13 +60,13 @@ namespace GZipTest.App
         }
 
         // TODO consider adding unity to the project
-        static IUncompressedFileReader SetupUncompressedFileReader(
+        static IFileReader SetupUncompressedFileReader(
             ProducerConsumer<IByteChunk> readerToProcessorsChain,
             ProducerConsumer<IByteChunk> finishChain)
         {
-            return new UncompressedFileReader(
+            return new FileReader(
                 new ThreadingImpl(),
-                new UncompressedFileReaderUow(UncompressedReadBlockSize,
+                new FileReaderUow(UncompressedReadBlockSize,
                     new IoImpl(),
                     readerToProcessorsChain,
                     finishChain));

@@ -1,7 +1,9 @@
-﻿namespace GZipTest.App.Process
+﻿using GZipTest.App.Main;
+
+namespace GZipTest.App.Process
 {
     public interface IBlockCompressorStarter
     {
-        void StartCompress();
+        void StartCompress(JobType jobType);
     }
 }

@@ -1,5 +1,7 @@
 ﻿using GZipTest.App.Gzip;
+using GZipTest.App.Main;
 using NUnit.Framework;
+using System.Linq;
 
 namespace GZipTest.Tests.Gzip
 {
@@ -10,16 +12,19 @@ namespace GZipTest.Tests.Gzip
         public void GzipStreamShouldWorkAsExpected()
         {
             // Arrange
-            var bytes = new byte[1];
+            var bytes = new byte[85];
+            bytes[0] = 42;
             var gzip = new GzipStream();
 
             // Act
-            var result = gzip.Compress(bytes);
+            var compressed = gzip.Compress(bytes, JobType.Compress);
+            var uncompressed = gzip.Compress(compressed, JobType.Decompress);
 
             // Assert
-            Assert.AreEqual(0x1f, result[0]);
-            Assert.AreEqual(0x8b, result[1]);
-            Assert.AreEqual(121, result.Length);
+            Assert.AreEqual(31, compressed[0]);
+            Assert.AreEqual(139, compressed[1]);
+            Assert.AreEqual(125, compressed.Length);
+            Assert.IsTrue(bytes.AsEnumerable().SequenceEqual(uncompressed.AsEnumerable()));
         }
     }
 }

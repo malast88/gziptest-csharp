@@ -12,17 +12,19 @@ namespace GZipTest.App
 {
     class Program
     {
-        // TODO resolve this regarding to system memory and cores count available
-        const int UncompressedReadBlockSize = 4 * 1024 * 1024;
-        const int ReaderProducerConsumerCapacity = 8;
+        // TODO consider resolve this regarding to system memory and cores count available
+        const int UncompressedReadBlockSize = 64 * 1024 * 1024;
         const int ProcessorProducerConsumerCapacity = 4;
-        // TODO RESOLVE THIS IN RUNTIME!!!
-        const int CompressThreadsCount = 4;
+
+        private static int CompressThreadsCount = 2;
+        private static int ReaderProducerConsumerCapacity = 8;
 
         static void Main(string[] args)
         {
             try
             {
+                CompressThreadsCount = Environment.ProcessorCount;
+
                 var argsResolver = new ArgumentsResolver();
                 var finishChain = SetupFinishChain();
                 var readerToProcessorsChain = SetupReaderToProcessorsChain();

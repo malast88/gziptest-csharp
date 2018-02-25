@@ -24,6 +24,7 @@ namespace GZipTest.App
             try
             {
                 CompressThreadsCount = Environment.ProcessorCount;
+                ReaderProducerConsumerCapacity = CompressThreadsCount * 2;
 
                 var argsResolver = new ArgumentsResolver();
                 var finishChain = SetupFinishChain();
